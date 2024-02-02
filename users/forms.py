@@ -23,15 +23,7 @@ class LoginUserForm(StyleMixin, AuthenticationForm):
 class RegisterUserForm(StyleMixin, UserCreationForm):
     class Meta:
         model = User
-        fields = ["name", "phone", "password1", "password2"]
-        labels = {
-            "phone": "Phone Number",
-            "name": "Name",
-        }
-        widgets = {
-            "phone": forms.TextInput(attrs={"class": "form-control"}),
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-        }
+        fields = ["username", "phone", "password1", "password2"]
 
     def clean_phone(self):
         phone = self.cleaned_data["phone"]
@@ -43,14 +35,14 @@ class RegisterUserForm(StyleMixin, UserCreationForm):
 class ProfileUserForm(StyleMixin, forms.ModelForm):
     class Meta:
         model = User
-        fields = ["phone", "name", "photo"]
+        fields = ["phone", "username", "photo"]
         labels = {
             "phone": "Phone",
-            "name": "Name",
+            "username": "Name",
             "photo": "Photo",
         }
         widgets = {
             "phone": forms.TextInput(attrs={"class": "form-control"}),
-            "name": forms.TextInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
             "photo": forms.FileInput(attrs={"class": "form-select-image"}),
         }

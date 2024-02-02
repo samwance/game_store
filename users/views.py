@@ -41,7 +41,6 @@ class Register(CreateView):
 class UserRetrieve(DetailView):
     model = User
     template_name = "users/user_retrieve.html"
-    extra_context = {"title": "User's profile"}
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -51,7 +50,7 @@ class UserRetrieve(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.object
-        context["title"] = user.name
+        context["title"] = user.username
         return context
 
 
