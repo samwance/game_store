@@ -1,0 +1,36 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner">
+    <div class="container">
+        <h1>Our Tabletop Game Collection</h1>
+        <p>Explore our collection of exciting and engaging tabletop games for all ages and skill levels.</p>
+    </div>
+</div>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for game in games reversed %}
+            <div class="col">
+                <div class="card game-card shadow-sm">
+                    <div class="game-card-img-container">
+                        <img src="{{ game.preview.url }}" alt="Preview" class="card-img-top game-card-img">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.title }}</h5>
+                        <p class="card-text">{{ game.genre }}</p>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <a href="{% url 'store:game' game.id %}"
+                                   class="text-decoration-none text-reset"><h3 class="text-body-secondary">{{ game.price }}</h3></a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -14,6 +14,7 @@ class Game(models.Model):
     )
     title = models.CharField(max_length=200)
     description = models.TextField(**NULLABLE)
+    preview = models.ImageField(upload_to='games/')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     publisher = models.CharField(max_length=100)
     release_date = models.DateField(auto_now=True)

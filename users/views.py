@@ -26,7 +26,7 @@ class Register(CreateView):
     form_class = RegisterUserForm
     template_name = "users/register.html"
     extra_context = {"title": "Registration"}
-    success_url = reverse_lazy("content:index")
+    success_url = reverse_lazy("store:list")
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -36,22 +36,6 @@ class Register(CreateView):
         if user is not None:
             login(self.request, user)
         return response
-
-
-class UserRetrieve(DetailView):
-    model = User
-    template_name = "users/user_retrieve.html"
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(pk=self.kwargs.get("pk"))
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.object
-        context["title"] = user.username
-        return context
 
 
 class ProfileUser(LoginRequiredMixin, UpdateView):

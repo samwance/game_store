@@ -1,0 +1,22 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <img src="{{ game.preview.url }}" alt="{{ game.title }}" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <h1>{{ game.title }}</h1>
+        <p>{{ game.description }}</p>
+        <p>Genre: {{ game.get_genre_display }}</p>
+        <p>Publisher: {{ game.publisher }}</p>
+        <p>Release Date: {{ game.release_date }}</p>
+        <p>Age Rating: {{ game.age_rating }}</p>
+        <p>Price: {{ game.price }}</p>
+        <button class="btn btn-primary" id="add-to-cart-btn">Add to Cart</button>
+        <button class="btn btn-secondary" id="order-btn">Order</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

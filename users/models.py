@@ -5,7 +5,7 @@ from django.db import models
 class User(AbstractUser):
     username = models.CharField(max_length=100, unique=True)
     phone = models.CharField(max_length=35, unique=True)
-    photo = models.ImageField(upload_to="store/", null=True, blank=True)
+    photo = models.ImageField(upload_to="users/", null=True, blank=True)
     street = models.CharField(max_length=255, blank=True, null=True)
     house_number = models.CharField(max_length=10, blank=True, null=True)
     apartment_number = models.CharField(max_length=10, blank=True, null=True)

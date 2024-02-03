@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<div class="banner">
+    <div class="container">
+        <h1>Welcome to our board game store!</h1>
+        <h2> We are a team of enthusiasts, offering a wide selection of board games for all ages and tastes.
+            Whether you are an experienced gamer or a beginner, you are sure to find something to your liking.
+            We focus special attention to the quality and variety of games, so that each of our clients can
+            find the perfect game for themselves, their family or friends.
+            Our goal is to make your pastime fun and unforgettable.
+            Join us and plunge into the exciting world of board games!
+        </h2>
+        <a href="{% url 'store:list' %}" class="btn btn-primary">View Games</a>
+    </div>
+</div>
+{% endblock %}
