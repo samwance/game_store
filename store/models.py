@@ -10,16 +10,17 @@ class Game(models.Model):
         ('role_playing', 'Role Playing'),
         ('puzzle', 'Puzzle'),
         ('card', 'Card'),
+        ('word', 'Word'),
         ('not_selected', 'Not selected')
     )
     title = models.CharField(max_length=200)
     description = models.TextField(**NULLABLE)
     preview = models.ImageField(upload_to='games/')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    publisher = models.CharField(max_length=100)
-    release_date = models.DateField(auto_now=True)
+    publisher = models.CharField(max_length=100, **NULLABLE)
     age_rating = models.CharField(max_length=5, **NULLABLE)
     genre = models.CharField(max_length=20, choices=GENRE_CHOICES, default='not_selected')
+    quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title
