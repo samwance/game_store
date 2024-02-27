@@ -22,8 +22,23 @@
                         <p class="card-text">{{ game.genre }}</p>
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary">
-                                <a href="{% url 'store:game' game.id %}"
-                                   class="text-decoration-none text-reset"><h3 class="text-body-secondary">{{ game.price }}</h3></a>
+                                <a href="{% url 'store:game' game.id %}" class="text-decoration-none text-reset">
+                                    <h4 class="text-body-secondary">
+                                        Open
+                                    </h4>
+                                </a>
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <a href="{% url 'store:add_to_cart' game.id %}" class="text-decoration-none text-reset">
+                                    <h4 class="text-body-secondary">
+                                        {% if game.is_in_the_cart %}
+                                        Remove
+                                        {% else %}
+                                        Add ({{ game.price }})
+                                        {% endif %}
+                                    </h4>
+                                </a>
                             </button>
                         </div>
                     </div>
@@ -34,3 +49,4 @@
     </div>
 </div>
 {% endblock %}
+

@@ -203,11 +203,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="ms-auto" style="display: flex;">
                 <div id="cart">
-                    <div class="cart-summary">
-                        <i class="bi bi-cart-fill"></i>
-                        <span id="cart-items">0</span>
-                        <span id="cart-total">$0.00</span>
-                    </div>
+                    {% include 'store/cart_sum.html' %}
                 </div>
 
                 <ul class="navbar-nav">

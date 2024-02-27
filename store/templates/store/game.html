@@ -1,21 +1,38 @@
 {% extends 'store/base.html' %}
 
 {% block content %}
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <img src="{{ game.preview.url }}" alt="{{ game.title }}" class="img-fluid">
-      </div>
-      <div class="col-md-6">
-        <h1>{{ game.title }}</h1>
-        <p>{{ game.description }}</p>
-        <p>Genre: {{ game.get_genre_display }}</p>
-        <p>Publisher: {{ game.publisher }}</p>
-        <p>Age Rating: {{ game.age_rating }}</p>
-        <p>Price: {{ game.price }}</p>
-        <button class="btn btn-primary" id="add-to-cart-btn">Add to Cart</button>
-        <button class="btn btn-secondary" id="order-btn">Order</button>
-      </div>
+        <div class="col-md-6">
+            <img src="{{ game.preview.url }}" alt="{{ game.title }}" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ game.title }}</h1>
+            <p>{{ game.description }}</p>
+            <p>Genre: {{ game.get_genre_display }}</p>
+            <p>Publisher: {{ game.publisher }}</p>
+            <p>Age Rating: {{ game.age_rating }}</p>
+            <p>Price: {{ game.price }}</p>
+            <button type="button" class="btn btn-sm btn-outline-secondary">
+                <a href="{% url 'store:add_to_cart' game.id %}" class="text-decoration-none text-reset">
+                    <h4 class="text-body-secondary">
+                        {% if game.is_in_the_cart %}
+                        Remove
+                        {% else %}
+                        Add ({{ game.price }})
+                        {% endif %}
+                    </h4>
+                </a>
+            </button>
+            <button class="btn btn-sm btn-outline-primary" id="order-btn">
+                <a href="#" class="text-decoration-none text-reset">
+
+                    <h4>
+                        Order
+                    </h4>
+                </a>
+            </button>
+        </div>
     </div>
-  </div>
+</div>
 {% endblock %}

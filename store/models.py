@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank':True, 'null':True}
 
 
@@ -20,7 +22,7 @@ class Game(models.Model):
     publisher = models.CharField(max_length=100, **NULLABLE)
     age_rating = models.CharField(max_length=5, **NULLABLE)
     genre = models.CharField(max_length=20, choices=GENRE_CHOICES, default='not_selected')
-    quantity = models.IntegerField(default=1)
+    is_in_the_cart = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
