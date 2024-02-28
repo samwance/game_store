@@ -13,20 +13,28 @@
             <p>Publisher: {{ game.publisher }}</p>
             <p>Age Rating: {{ game.age_rating }}</p>
             <p>Price: {{ game.price }}</p>
-            <button type="button" class="btn btn-sm btn-outline-secondary">
-                <a href="{% url 'store:add_to_cart' game.id %}" class="text-decoration-none text-reset">
-                    <h4 class="text-body-secondary">
-                        {% if game.is_in_the_cart %}
-                        Remove
-                        {% else %}
-                        Add ({{ game.price }})
-                        {% endif %}
-                    </h4>
-                </a>
-            </button>
+            <form method="post" id="add-to-cart-form">
+                {% csrf_token %}
+                <input type="hidden" name="game_id" value="{{ game.id }}"/>
+
+                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                    <h3 class="text-body-secondary">
+                        Add to Cart
+                    </h3>
+                </button>
+            </form>
+            <form method="post" id="add-to-wishlist-form">
+                {% csrf_token %}
+                <input type="hidden" name="game_id" value="{{ game.id }}"/>
+                <button type="submit" class="btn btn-sm btn-outline-secondary">
+
+                    <h3 class="text-body-danger">
+                        Save
+                    </h3>
+                </button>
+            </form>
             <button class="btn btn-sm btn-outline-primary" id="order-btn">
                 <a href="#" class="text-decoration-none text-reset">
-
                     <h4>
                         Order
                     </h4>
