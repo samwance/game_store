@@ -1,6 +1,7 @@
 
 <div class="cart-summary">
     <i class="bi bi-cart-fill"></i>
-    <span id="cart-items">{{ totalQuantity }}</span>
-    <span id="cart-total">${{ totalPrice }}</span>
+    <span class="cart-items">{{ request.cart_count }}</span>
+    <span>$</span>
+    <span class="cart-price">{{ request.cart_price }} </span>
 </div>

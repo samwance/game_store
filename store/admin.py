@@ -15,7 +15,7 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'game', 'quantity', 'cart')
+    list_display = ('id', 'game', 'cart')
 
 
 @admin.register(Wishlist)

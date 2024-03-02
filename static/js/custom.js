@@ -1,4 +1,5 @@
 
+
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -16,108 +17,84 @@ function getCookie(name) {
 }
 
 const csrftoken = getCookie('csrftoken');
+
 $(function() {
-  $('#add-to-cart-form button').on('click', function(event) {
-    event.preventDefault(); // предотвращаем стандартное действие кнопки
-    var gameId = $(this).closest('form').find('input[name="game_id"]').val();
-    var url = '/add/';
-    var data = {
-      game_id: gameId
-    };
+    // Function to handle add to cart button clicks
+    function handleAddToCart(formId, url, errorMessage) {
+        $(formId + ' button').on('click', function(event) {
+            event.preventDefault();
+            var gameId = $(this).closest('form').find('input[name="game_id"]').val();
+            var data = { game_id: gameId };
+            var _vm=$(this);
 
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: data,
-      headers: {
-        'X-CSRFToken': csrftoken
-      },
-      success: function(response) {
-        // обработка успешного добавления в корзину
-        console.log('Игра добавлена в корзину:', response);
-      },
-      error: function(xhr, status, error) {
-        // обработка ошибки
-        console.error('Ошибка при добавлении игры в корзину:', error);
-      }
-    });
-  });
+            var cartText = $(`.btn-cart${gameId}`).text()
+            var trim = $.trim(cartText)
 
-  $('#add-to-wishlist-form button').on('click', function(event) {
-    event.preventDefault(); // предотвращаем стандартное действие кнопки
-    var gameId = $(this).closest('form').find('input[name="game_id"]').val();
-    var url = '/like/';
-    var data = {
-      game_id: gameId
-    };
+            let res;
+            var cartItems = $(`.cart-items`).text()
+            var cartPrice = $(`.cart-price`).text()
+            var trimCount = parseInt(cartItems)
+            var trimPrice = parseFloat(cartPrice)
+            var gamePrice = parseFloat($(this).closest('form').find('input[name="game_price"]').val());
 
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: data,
-      headers: {
-        'X-CSRFToken': csrftoken
-      },
-      success: function(response) {
-        // обработка успешного добавления в список желаемого
-        console.log('Игра добавлена в список желаемого:', response);
-      },
-      error: function(xhr, status, error) {
-        // обработка ошибки
-        console.error('Ошибка при добавлении игры в список желаемого:', error);
-      }
-    });
-  });
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function(response) {
+                    if(trim === 'Remove') {
+                        $(`.btn-cart${gameId}`).text('Add')
+                        res = trimCount - 1
+                        trimPrice -= gamePrice;
+                    } else {
+                        $(`.btn-cart${gameId}`).text('Remove')
+                        res = trimCount + 1
+                        trimPrice += gamePrice;
+                    }
 
-  $('#remove-from-cart-form button').on('click', function(event) {
-    event.preventDefault(); // предотвращаем стандартное действие кнопки
-    var gameId = $(this).closest('form').find('input[name="game_id"]').val();
-    var url = '/remove/';
-    var data = {
-      game_id: gameId
-    };
+                    $(`.cart-items`).text(res)
+                    $(`.cart-price`).text(trimPrice.toFixed(2))
+                },
+                error: function(xhr, status, error) {
+                    console.error(errorMessage, error);
+                }
+            });
+        });
+    }
 
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: data,
-      headers: {
-        'X-CSRFToken': csrftoken
-      },
-      success: function(response) {
-        // обработка успешного удаления из корзины
-        console.log('Игра удалена из корзины:', response);
-      },
-      error: function(xhr, status, error) {
-        // обработка ошибки
-        console.error('Ошибка при удалении игры из корзины:', error);
-      }
-    });
-  });
+    // Function to handle add to wishlist button clicks
+    function handleAddToWishlist(formId, url, errorMessage) {
+        $(formId + ' button').on('click', function(event) {
+            event.preventDefault();
+            var gameId = $(this).closest('form').find('input[name="game_id"]').val();
+            var data = { game_id: gameId };
+            var _vm=$(this);
 
-  $('#remove-from-wishlist-form button').on('click', function(event) {
-    event.preventDefault(); // предотвращаем стандартное действие кнопки
-    var gameId = $(this).closest('form').find('input[name="game_id"]').val();
-    var url = '/unlike/';
-    var data = {
-      game_id: gameId
-    };
+            var cartText = $(`.btn-wishlist${gameId}`).text()
+            var trim = $.trim(cartText)
 
-    $.ajax({
-      type: 'POST',
-      url: url,
-      data: data,
-      headers: {
-        'X-CSRFToken': csrftoken
-      },
-      success: function(response) {
-        // обработка успешного удаления из списка желаемого
-        console.log('Игра удалена из списка желаемого:', response);
-      },
-      error: function(xhr, status, error) {
-        // обработка ошибки
-        console.error('Ошибка при удалении игры из списка желаемого:', error);
-      }
-    });
-  });
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                headers: { 'X-CSRFToken': csrftoken },
+                success: function(response) {
+                    console.log(response)
+                    if(trim === 'Unlike') {
+                        $(`.btn-wishlist${gameId}`).text('Like')
+                    } else {
+                        $(`.btn-wishlist${gameId}`).text('Unlike')
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(errorMessage, error);
+                }
+            });
+        });
+    }
+
+    // Call the functions with the appropriate parameters
+    handleAddToCart('#manage-cart-form', '/manage_cart/', 'Error adding game to cart.');
+    handleAddToWishlist('#manage-wishlist-form', '/manage_wishlist/', 'Error adding game to wishlist.');
 });

@@ -23,54 +23,41 @@
                         <a href="{% url 'store:game' game.id %}">
                             <h3 class="card-title">{{ game.title }}</h3>
                         </a>
+                        <a>
+                            <h3 class="card-title">{{ game.price }}</h3>
+                        </a>
                         <p class="card-text">{{ game.genre }}</p>
                         <div class="btn-group">
-                            {% if game.in_cart %}
-                            <form method="post" id="remove-from-cart-form">
+                            <form method="post" id="manage-cart-form">
                                 {% csrf_token %}
                                 <input type="hidden" name="game_id" value="{{ game.id }}"/>
+                                <input type="hidden" name="game_price" value="{{ game.price }}"/>
 
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                    <h4 class="text-body-secondary">
-                                        Remove from Cart
+                                    <h4 class="btn-cart{{ game.id }}">
+                                        {% if game.in_cart %}
+                                        Remove
+                                        {% else %}
+                                        Add
+                                        {% endif %}
                                     </h4>
                                 </button>
                             </form>
-                            {% else %}
-                            <form method="post" id="add-to-cart-form">
-                                {% csrf_token %}
-                                <input type="hidden" name="game_id" value="{{ game.id }}"/>
-
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                    <h4 class="text-body-secondary">
-                                        Add to Cart
-                                    </h4>
-                                </button>
-                            </form>
-                            {% endif %}
-                            {% if not game.in_wishlist %}
-                            <form method="post" id="add-to-wishlist-form">
+                            <form method="post" id="manage-wishlist-form">
                                 {% csrf_token %}
                                 <input type="hidden" name="game_id" value="{{ game.id }}"/>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">
 
-                                    <h4 class="text-body-danger">
-                                        Save
-                                    </h4>
-                                </button>
-                            </form>
-                            {% else %}
-                            <form method="post" id="remove-from-wishlist-form">
-                                {% csrf_token %}
-                                <input type="hidden" name="game_id" value="{{ game.id }}"/>
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                    <h4 class="btn-wishlist{{ game.id }}">
+                                        {% if not game.in_wishlist %}
+                                        Like
+                                        {% else %}
+                                        Unlike
+                                        {% endif %}
 
-                                    <h4 class="text-body-danger">
-                                        Remove from Wishlist
                                     </h4>
                                 </button>
                             </form>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

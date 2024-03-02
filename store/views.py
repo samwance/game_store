@@ -1,7 +1,5 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from django.views import View
-from django.views.generic import ListView
 
 from .models import Game, CartItem, Cart, WishlistItem, Wishlist
 
@@ -45,32 +43,27 @@ def cart_list(request):
     return render(request, 'cart.html', context)
 
 
-def add_to_cart(request):
-    game_id = request.POST.get('game_id')
-    cart, created = Cart.objects.get_or_create(user=request.user, is_active=True)
-    game, _ = Game.objects.get_or_create(id=game_id)
-    CartItem.objects.update_or_create(cart=cart, game=game, defaults={'quantity': 1})
-    return JsonResponse({'success': True})
+def manage_cart(request):
+    if request.method == 'POST':
+        game_id = request.POST.get('game_id')
 
+        cart, created = Cart.objects.get_or_create(user=request.user, is_active=True)
+        game, _ = Game.objects.get_or_create(id=game_id)
 
-def update_cart_item(request, cart_item_id):
-    quantity = request.POST.get('quantity')
-    try:
-        cart_item = CartItem.objects.get(id=cart_item_id)
-        cart_item.quantity = int(quantity)
-        cart_item.save()
-        return JsonResponse({'success': True})
-    except CartItem.DoesNotExist:
-        return JsonResponse({'success': False})
+        if CartItem.objects.filter(cart=cart, game=game).exists():
+            CartItem.objects.filter(cart=cart, game=game).delete()
+            value = 'Add'
+        else:
+            CartItem.objects.create(cart=cart, game=game)
+            value = 'Remove'
 
+        data = {
+            "value": value,
+            "count": CartItem.objects.filter(cart=cart).count(),
+            "game_price": game.price
+        }
 
-def remove_from_cart(request):
-    game_id = request.POST.get('game_id')
-    game = Game.objects.get(id=game_id)
-    cart = Cart.objects.get(user=request.user)
-    if CartItem.objects.filter(cart=cart, game=game).exists():
-        CartItem.objects.filter(cart=cart, game=game).delete()
-    return JsonResponse({'removed_from_cart': True})
+        return JsonResponse(data, safe=False)
 
 
 def wishlist_list(request):
@@ -79,22 +72,23 @@ def wishlist_list(request):
     return render(request, 'wishlist.html', context)
 
 
-def add_to_wishlist(request):
-    game_id = request.POST.get('game_id')
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-    game = Game.objects.get(id=game_id)
+def manage_wishlist(request):
+    if request.method == 'POST':
+        game_id = request.POST.get('game_id')
 
-    # Проверяем, есть ли игра уже в списке желаемого
-    if not WishlistItem.objects.filter(wishlist=wishlist, game=game).exists():
-        WishlistItem.objects.create(wishlist=wishlist, game=game)
+        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+        game = Game.objects.get(id=game_id)
 
-    return JsonResponse({'in_wishlist': WishlistItem.objects.filter(wishlist=wishlist, game=game).exists()})
+        if not WishlistItem.objects.filter(wishlist=wishlist, game=game).exists():
+            WishlistItem.objects.create(wishlist=wishlist, game=game)
+            value = 'Unlike'
+        else:
+            WishlistItem.objects.filter(wishlist=wishlist, game=game).delete()
+            value = 'Like'
 
+        data = {
+            "value": value,
+            "count": WishlistItem.objects.filter(wishlist=wishlist).count()
+        }
 
-def remove_from_wishlist(request):
-    game_id = request.POST.get('game_id')
-    game = Game.objects.get(id=game_id)
-    wishlist = Wishlist.objects.get(user=request.user)
-    if WishlistItem.objects.filter(wishlist=wishlist, game=game).exists():
-        WishlistItem.objects.filter(wishlist=wishlist, game=game).delete()
-    return JsonResponse({'removed_from_wishlist': True})
+        return JsonResponse(data, safe=False)

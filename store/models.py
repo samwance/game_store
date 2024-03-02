@@ -21,7 +21,6 @@ class Game(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     publisher = models.CharField(max_length=100, **NULLABLE)
     age_rating = models.CharField(max_length=5, **NULLABLE)
-    quantity = models.PositiveIntegerField(default=1)
     genre = models.CharField(max_length=20, choices=GENRE_CHOICES, default='not_selected')
 
 
@@ -39,11 +38,10 @@ class Cart(models.Model):
 
 class CartItem(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.quantity} x {self.game.title}'
+        return self.game.title
 
 
 class Wishlist(models.Model):
