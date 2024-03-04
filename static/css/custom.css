@@ -55,20 +55,17 @@ body {
 }
 
 .btn-bd-primary {
-  --bd-violet-bg: #712cf9;
-  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
   --bs-btn-font-weight: 600;
   --bs-btn-color: var(--bs-white);
-  --bs-btn-bg: var(--bd-violet-bg);
-  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-bg: var(--bs-gray-700); /* Change to gray */
+  --bs-btn-border-color: var(--bs-gray-700); /* Change to gray */
   --bs-btn-hover-color: var(--bs-white);
-  --bs-btn-hover-bg: #6528e0;
-  --bs-btn-hover-border-color: #6528e0;
-  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-hover-bg: var(--bs-gray-800);
+  --bs-btn-hover-border-color: var(--bs-gray-800);
+  --bs-btn-focus-shadow-rgb: var(--bs-gray-800);
   --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: #5a23c8;
-  --bs-btn-active-border-color: #5a23c8;
+  --bs-btn-active-bg: var(--bs-gray-900);
+  --bs-btn-active-border-color: var(--bs-gray-900);
 }
 
 .bd-mode-toggle {
@@ -84,6 +81,33 @@ body {
     width: 277px;
 }
 
+.game-card a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.game-card a:hover {
+  text-decoration: underline;
+}
+
+.btn-cart,
+.btn-wishlist {
+  margin: 0 5px;
+}
+
+.btn-cart:focus,
+.btn-wishlist:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #007bff;
+}
+
+.btn-cart:focus:not(:focus-visible),
+.btn-wishlist:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+
 .game-card-img {
     object-fit: cover;
     height: 150px;
@@ -93,6 +117,16 @@ body {
 .game-card-img-container {
     height: 150px;
     overflow: hidden;
+}
+
+.game-card .card-body {
+    flex: 1;
+}
+
+.game-card .price {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
 }
 
 .banner {
@@ -130,7 +164,6 @@ body {
   border-radius: 50px;
 }
 
-
 .cart-summary {
   background-color: white;
   padding: 5px 10px;
@@ -143,10 +176,10 @@ body {
   font-weight: bold;
 }
 
-.cart-summary i {
-  color: #337ab7;
-  margin-right: 5px;
+.cart-summary i.text-gray {
+    color: #6c757d !important;
 }
+
 
 @media (max-width: 767.98px) {
   .banner h1 {

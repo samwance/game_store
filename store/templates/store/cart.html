@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'store/base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-18">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in object_list %}
+                <tr>
+                    <td>{{ item.game.title }}</td>
+                    <td>{{ item.game.price }}</td>
+                    <td>
+                        <form method="post" id="manage-cart-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="game_id" value="{{ item.game.id }}"/>
+                            <input type="hidden" name="game_price" value="{{ item.game.price }}"/>
+
+                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
+                                <h5 class="btn-cart{{ item.game.id }}">
+                                    Remove
+                                </h5>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="4">Total Price</td>
+                    <td>{{ request.cart_price }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Quantity</td>
+                    <td>{{ request.cart_count }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

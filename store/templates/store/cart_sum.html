@@ -1,7 +1,8 @@
-
 <div class="cart-summary">
-    <i class="bi bi-cart-fill"></i>
-    <span class="cart-items">{{ request.cart_count }}</span>
-    <span>$</span>
-    <span class="cart-price">{{ request.cart_price }} </span>
+    <a href="{% url 'store:cart'%}" class="btn btn-sm btn-outline-secondary">
+        <i class="bi-basket text-gray"></i>
+        <span class="cart-items">{{ request.cart_count }}</span>
+        <span>$</span>
+        <span class="cart-price">{{ request.cart_price }} </span>
+    </a>
 </div>

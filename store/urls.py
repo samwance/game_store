@@ -12,6 +12,6 @@ urlpatterns = [
     path("about", about, name="about"),
     path('manage_cart/', manage_cart, name='manage_cart'),
     path('manage_wishlist/', manage_wishlist, name='manage_wishlist'),
-    path('cart/', cart_list, name='cart_view'),
-    path('wishlist/', wishlist_list, name='wishlist_view'),
+    path('cart/', cart_list, name='cart'),
+    path('wishlist/', wishlist_list, name='wishlist'),
 ]

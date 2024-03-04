@@ -3,6 +3,7 @@
 <html lang="en" data-bs-theme="auto">
 <head>
     <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="{% static 'default/bg_logo.png' %}">
 
 
@@ -21,11 +22,7 @@
     <div class="container-fluid" style="display: flex;">
         <a class="navbar-brand" style="display: flex" href="{% url 'store:list' %}">
             <img src="{% static 'default/bg_logo.png' %}" alt="Logo" width="50" height="50">
-            <ul class="navbar-nav text-center">
-                <li class="nav-item">
-                    <h1 class="navbar-brand">Table & Board</h1>
-                </li>
-            </ul>
+            <h1 class="navbar-brand"><strong>Table & Board</strong></h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,7 +145,8 @@
 
     <footer>
         <div id="footer">
-            <p class="mb-0">Copyright © {{ current_year }} <strong>Table & Board</strong>: board game store. All Rights Reserved.</p>
+            <p class="mb-0">Copyright © {{ current_year }} <strong>Table & Board</strong>: board game store. All Rights
+                Reserved.</p>
         </div>
     </footer>
 </main>

@@ -38,9 +38,8 @@ def view_game(request, pk):
 
 def cart_list(request):
     cart_items = CartItem.objects.filter(cart__user=request.user, cart__is_active=True)
-    total_price = sum(item.get_total_price() for item in cart_items)
-    context = {'object_list': cart_items, 'total_price': total_price}
-    return render(request, 'cart.html', context)
+    context = {'object_list': cart_items}
+    return render(request, 'store/cart.html', context)
 
 
 def manage_cart(request):
@@ -69,7 +68,7 @@ def manage_cart(request):
 def wishlist_list(request):
     wishlist_items = WishlistItem.objects.filter(wishlist__user=request.user, wishlist__is_active=True)
     context = {'object_list': wishlist_items}
-    return render(request, 'wishlist.html', context)
+    return render(request, 'store/wishlist.html', context)
 
 
 def manage_wishlist(request):
