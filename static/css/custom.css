@@ -2,10 +2,17 @@ main {
   padding-top: 56px;
 }
 
+
 body {
   margin: 0;
   display: flex;
   justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* this will make sure that the elements wrap to the next line when there's no more space on the current line */
 }
 
 .bd-placeholder-img {
@@ -76,9 +83,19 @@ body {
   display: block !important;
 }
 
+p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .game-card {
-    height: 350px;
-    width: 277px;
+  z-index: 1;
+  position: relative;
+  display: block !important;
+  height: 310px;
+  width: 310px;
+  overflow: hidden;
 }
 
 .game-card a {
@@ -107,26 +124,29 @@ body {
   box-shadow: none;
 }
 
-
 .game-card-img {
-    object-fit: cover;
-    height: 150px;
-    width: 100%;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .game-card-img-container {
-    height: 150px;
-    overflow: hidden;
+  height: 150px;
+  overflow: hidden;
 }
 
 .game-card .card-body {
-    flex: 1;
+  flex: 1;
+  padding: 20px;
 }
 
 .game-card .price {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff3c7f;
 }
 
 .banner {
@@ -162,6 +182,13 @@ body {
   padding: 12px 32px;
   font-size: 24px;
   border-radius: 50px;
+  background-color: #ff3c7f;
+  color: white;
+  text-decoration: none;
+}
+
+.banner .btn:hover {
+  background-color: #ff7e5f;
 }
 
 .cart-summary {
@@ -169,6 +196,9 @@ body {
   padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cart-summary span {
@@ -177,14 +207,40 @@ body {
 }
 
 .cart-summary i.text-gray {
-    color: #6c757d !important;
+  color: #6c757d;
 }
 
-
-@media (max-width: 767.98px) {
-  .banner h1 {
-    font-size: 36px;
-    line-height: 42px;
-    margin-bottom: 16px;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+td:nth-child(1) {
+  width: 40%;
+}
+
+td:nth-child(2) {
+  width: 40%;
+}
+
+td:nth-child(3) {
+  width: 10%;
+}
+
+td:nth-child(4) {
+  width: 60%;
+  box-shadow: 1px 1px 2px #ccc;
+}
+
+td:nth-child(4) img {
+  width: 100%;
+  height: auto;
+}
+

@@ -8,7 +8,8 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Product</th>
+                    <th>Preview</th>
+                    <th>Game</th>
                     <th>Price</th>
                     <th>Total Price</th>
                 </tr>
@@ -16,6 +17,11 @@
                 <tbody>
                 {% for item in object_list %}
                 <tr>
+                    <td>
+                        <a href="{% url 'store:game' item.game.id %}">
+                            <img src="{{ item.game.preview.url }}" alt="Preview" width="180" height="180">
+                        </a>
+                    </td>
                     <td>{{ item.game.title }}</td>
                     <td>{{ item.game.price }}</td>
                     <td>
@@ -36,12 +42,12 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="4">Total Price</td>
-                    <td>{{ request.cart_price }}</td>
+                    <td colspan="3">Total Price</td>
+                    <td colspan="1">${{ request.cart_price }}</td>
                 </tr>
                 <tr>
-                    <td colspan="4">Quantity</td>
-                    <td>{{ request.cart_count }}</td>
+                    <td colspan="3">Quantity</td>
+                    <td colspan="1">{{ request.cart_count }}</td>
                 </tr>
                 </tfoot>
             </table>

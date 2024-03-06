@@ -1,11 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 
 from .models import Game, CartItem, Cart, WishlistItem, Wishlist
+from django.shortcuts import get_object_or_404
 
 
-def game_list(request):
-    games = Game.objects.all()
+def get_game_list_data(request):
     cart = CartItem.objects.filter(cart__user=request.user, cart__is_active=True)
     wishlist = WishlistItem.objects.filter(wishlist__user=request.user, wishlist__is_active=True)
 
@@ -13,27 +13,49 @@ def game_list(request):
     cart_game_ids = set(item.game.id for item in cart)
     wishlist_game_ids = set(item.game.id for item in wishlist)
 
+    return cart_game_ids, wishlist_game_ids
+
+
+def game_list(request):
+    query = request.GET.get('q')
+    genre_filter = request.GET.getlist('genre')
+    games = Game.objects.all()
+    cart_game_ids, wishlist_game_ids = get_game_list_data(request)
+
     # Add 'in_cart' and 'in_wishlist' attributes to each game
     for game in games:
         game.in_cart = game.id in cart_game_ids
         game.in_wishlist = game.id in wishlist_game_ids
+
+    if query:
+        games = games.filter(title__icontains=query)
+
+    if genre_filter:
+        games = games.filter(genre__in=genre_filter)
 
     title = 'Table & Board'
     context = {'games': games, 'title': title}
     return render(request, 'store/index.html', context)
 
 
+def view_game(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+
+    title = game.title
+    cart_game_ids, wishlist_game_ids = get_game_list_data(request)
+
+    # Add 'in_cart' and 'in_wishlist' attributes to each game
+    game.in_cart = game.id in cart_game_ids
+    game.in_wishlist = game.id in wishlist_game_ids
+
+    context = {'game': game, 'title': title}
+    return render(request, 'store/game.html', context)
+
+
 def about(request):
     title = 'About'
     context = {'title': title}
     return render(request, 'store/about.html', context)
-
-
-def view_game(request, pk):
-    game = get_object_or_404(Game, pk=pk)
-    title = game.title
-    context = {'game': game, 'title': title}
-    return render(request, 'store/game.html', context)
 
 
 def cart_list(request):

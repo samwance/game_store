@@ -1,10 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'store/base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-18">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Preview</th>
+                    <th>Game</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'store:game' item.game.id %}">
+                            <img src="{{ item.game.preview.url }}" alt="Preview" width="180" height="180">
+                        </a>
+                    </td>
+                    <td>{{ item.game.title }}</td>
+                    <td>{{ item.game.price }}</td>
+                    <td>
+                        <form method="post" id="manage-wishlist-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="game_id" value="{{ item.game.id }}"/>
+                            <input type="hidden" name="game_price" value="{{ item.game.price }}"/>
+
+                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
+                                <h5 class="btn-wishlist{{ item.game.id }}">
+                                    Remove
+                                </h5>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3">Total Games</td>
+                    <td colspan="1">{{ request.wishlist_count }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

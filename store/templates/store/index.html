@@ -24,8 +24,8 @@
                             <a href="{% url 'store:game' game.id %}">
                                 <h3 class="card-title">
                                     {{ game.title }}
+                                    <span class="badge bg-secondary">{{ game.get_genre_display }}</span>
                                 </h3>
-                                <span class="badge bg-secondary">{{ game.get_genre_display }}</span>
                             </a>
                         </div>
                         <div class="btn-group">
@@ -35,13 +35,13 @@
                                 <input type="hidden" name="game_price" value="{{ game.price }}"/>
 
                                 <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
-                                    <h5 class="btn-cart{{ game.id }}">
+                                    <h4 class="btn-cart{{ game.id }}">
                                         {% if game.in_cart %}
                                         Remove
                                         {% else %}
                                         Add
                                         {% endif %}
-                                    </h5>
+                                    </h4>
                                 </button>
                             </form>
                             <form method="post" id="manage-wishlist-form">
@@ -49,23 +49,23 @@
                                 <input type="hidden" name="game_id" value="{{ game.id }}"/>
                                 <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
 
-                                    <h5 class="btn-wishlist{{ game.id }}">
+                                    <h4 class="btn-wishlist{{ game.id }}">
                                         {% if not game.in_wishlist %}
                                         Like
                                         {% else %}
                                         Unlike
                                         {% endif %}
 
-                                    </h5>
+                                    </h4>
                                 </button>
                             </form>
-                            <div class="price">
+                        </div>
+                        <div class="price">
                                 <span class="text-muted">
-                                    <h4>
+                                    <h3>
                                     {{ game.price }}
-                                    </h4>
+                                    </h3>
                                 </span>
-                            </div>
                         </div>
                     </div>
                 </div>

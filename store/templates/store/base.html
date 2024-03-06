@@ -3,6 +3,7 @@
 <html lang="en" data-bs-theme="auto">
 <head>
     <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="icon" type="image/png" href="{% static 'default/bg_logo.png' %}">
 
@@ -30,14 +31,20 @@
         </button>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'store:list' %}">Games</a>
+                <a class="nav-link" href="{% url 'store:list' %}"><strong>Games</strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'store:about' %}">About</a>
+                <a class="nav-link" href="{% url 'store:about' %}"><strong>About</strong></a>
             </li>
         </ul>
 
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <form class="ms-auto" role="search" method="get" action="{% url 'store:list' %}" style="display: flex;">
+                <input class="form-control me-2" type="search" placeholder="Search games..." aria-label="Search"
+                       name="q">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             <div class="ms-auto" style="display: flex;">
                 <div id="cart">
                     {% include 'store/cart_sum.html' %}
@@ -59,6 +66,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'users:profile' %}">My Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'store:wishlist'%}">My wishlist ({{
+                                request.wishlist_count }})</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
