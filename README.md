@@ -2,6 +2,8 @@
 
 Table & Board Game Store is an online store for board games and tabletop games. Users can browse games, add them to their cart or wishlist, and manage their carts and wishlists.
 
+![img.png](static/default/interface.png)
+
 ## Features
 
 - Browse games by genre, title, or query
