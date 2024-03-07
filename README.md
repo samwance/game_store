@@ -13,8 +13,12 @@ Table & Board Game Store is an online store for board games and tabletop games. 
 
 ## Technologies Used
 
+[![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat-square&logo=PostgreSQL)](https://www.postgresql.org/)
+[![Bootstrap](https://img.shields.io/badge/-Bootstrap-464646?style=flat-square&logo=Bootstrap)](https://www.bootstrap.com/)
+
 - Django: A high-level Python web framework
-- Posgresql: A lightweight database for storing game data
+- PosgreSQL: A lightweight database for storing game data
 - HTML, CSS, and JavaScript: For building the frontend of the website
 - Bootstrap: A popular CSS framework for building responsive and mobile-first websites
 - AJAX: For creating asynchronous web applications
