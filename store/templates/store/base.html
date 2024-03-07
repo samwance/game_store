@@ -20,15 +20,13 @@
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 
 <header class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid" style="display: flex;">
+    <div class="container-fluid">
         <a class="navbar-brand" style="display: flex" href="{% url 'store:list' %}">
             <img src="{% static 'default/bg_logo.png' %}" alt="Logo" width="50" height="50">
+        </a>
+        <a class="navbar-brand" style="display: flex" href="{% url 'store:list' %}">
             <h1 class="navbar-brand"><strong>Table & Board</strong></h1>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'store:list' %}"><strong>Games</strong></a>
@@ -40,12 +38,23 @@
 
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <form class="ms-auto" role="search" method="get" action="{% url 'store:list' %}" style="display: flex;">
-                <input class="form-control me-2" type="search" placeholder="Search games..." aria-label="Search"
-                       name="q">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
             <div class="ms-auto" style="display: flex;">
+                <form role="search" method="get" action="{% url 'store:list' %}" style="display: flex;">
+                    <input class="form-control me-2" type="search" placeholder="Search games..." aria-label="Search"
+                           name="q">
+                    <select class="form-select me-2" name="genre" aria-label="Select Genre">
+                        <option value="">All genres</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="strategy">Strategy</option>
+                        <option value="role_playing">Role Playing</option>
+                        <option value="puzzle">Puzzle</option>
+                        <option value="card">Card</option>
+                        <option value="word">Word</option>
+                    </select>
+                    <button class="btn btn-outline-success search-btn" type="submit" style="margin-right: 10px;">
+                        Search
+                    </button>
+                </form>
                 <div id="cart">
                     {% include 'store/cart_sum.html' %}
                 </div>
@@ -66,8 +75,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'users:profile' %}">My Account</a></li>
-                            <li><a class="dropdown-item" href="{% url 'store:wishlist'%}">My wishlist ({{
-                                request.wishlist_count }})</a></li>
+                            <li><a class="dropdown-item" href="{% url 'store:wishlist'%}">
+                                My wishlist ({{ request.wishlist_count }})
+                            </a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

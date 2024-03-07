@@ -19,6 +19,7 @@ def get_game_list_data(request):
 def game_list(request):
     query = request.GET.get('q')
     genre_filter = request.GET.getlist('genre')
+
     games = Game.objects.all()
     cart_game_ids, wishlist_game_ids = get_game_list_data(request)
 
@@ -31,7 +32,11 @@ def game_list(request):
         games = games.filter(title__icontains=query)
 
     if genre_filter:
-        games = games.filter(genre__in=genre_filter)
+        if genre_filter[0] == '':
+            # If the 'all genres' option is selected, show all games
+            pass
+        else:
+            games = games.filter(genre__in=genre_filter)
 
     title = 'Table & Board'
     context = {'games': games, 'title': title}
