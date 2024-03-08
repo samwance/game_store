@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -15,7 +16,7 @@ def get_game_list_data(request):
 
     return cart_game_ids, wishlist_game_ids
 
-
+@login_required
 def game_list(request):
     query = request.GET.get('q')
     genre_filter = request.GET.getlist('genre')
