@@ -184,6 +184,23 @@ body {
     color: #6c757d !important;
 }
 
+.genre-info {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.genre-link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.genre-link:hover {
+    color: #ccc;
+}
+
+
 table {
   width: 100%;
   border-collapse: collapse;

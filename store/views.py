@@ -69,6 +69,11 @@ def view_game(request, pk):
     return render(request, 'store/game.html', context)
 
 
+def view_genre(request, slug):
+    genre = Genre.objects.get(slug=slug)
+    return render(request, 'store/genre.html', {'genre': genre})
+
+
 def about(request):
     title = 'About'
     context = {'title': title}

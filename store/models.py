@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 from users.models import User
 
@@ -9,6 +10,12 @@ class Genre(models.Model):
     preview = models.ImageField(upload_to='genres/')
     name = models.CharField(max_length=100)
     description = models.TextField(**NULLABLE)
+    slug = models.SlugField(unique=True, default='noslug')
+
+    def save(self, *args, **kwargs):
+        if self.slug == 'noslug':  # Проверка на наличие слага
+            self.slug = slugify(self.name)
+        super(Genre, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

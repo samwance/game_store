@@ -12,7 +12,7 @@
 <div class="container">
     {% for genre in genres %}
     <div class="genre-info">
-        <h2><strong>{{ genre.name }}</strong></h2>
+        <h2><strong><a class="genre-link" href="{% url 'store:genre' slug=genre.slug %}">{{ genre.name }}</a></strong></h2>
         <p>{{ genre.description }}</p>
     </div>
     <div class="row g-4 row-cols-1 row-cols-md-4">
@@ -29,9 +29,6 @@
                         <a href="{% url 'store:game' game.id %}">
                             <h3 class="card-title">
                                 {{ game.title }}
-                                {% with first_genre=game.genre.all|first %}
-                                <span class="badge bg-secondary">{{ first_genre }}</span>
-                                {% endwith %}
                             </h3>
                         </a>
                     </div>

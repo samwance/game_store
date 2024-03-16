@@ -87,7 +87,8 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'users:profile' %}">My Account</a></li>
                             <li><a class="dropdown-item" href="{% url 'store:wishlist'%}">
-                                My wishlist ({{ request.wishlist_count }})
+                                My wishlist
+        (<span class="wishlist-items">{{ request.wishlist_count }}</span>)
                             </a></li>
                             <li>
                                 <hr class="dropdown-divider">
