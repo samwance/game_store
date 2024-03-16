@@ -1,3 +1,4 @@
+from django.contrib.auth import login, authenticate
 from django.core.management import BaseCommand
 
 from users.models import User
@@ -15,3 +16,8 @@ class Command(BaseCommand):
 
         user.set_password("12345")
         user.save()
+
+        authenticated_user = authenticate(username="admin", password="12345")
+        if authenticated_user is not None:
+            # Log in the user
+            login(self.stdout, authenticated_user)

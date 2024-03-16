@@ -3,14 +3,20 @@
 {% block content %}
 <div class="banner">
     <div class="container">
+        {% if query or genre_filter %}
+        <p>The search results:</p>
+        {% else %}
         <h1>Our Tabletop Game Collection</h1>
         <p>Explore our collection of exciting and engaging tabletop games for all ages and skill levels.</p>
+        {% endif %}
     </div>
 </div>
 
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row g-4 row-cols-1 row-cols-md-4">
+
+            {% if games %}
             {% for game in games reversed %}
             <div class="col ms-auto">
                 <div class="card game-card shadow-sm">
@@ -24,7 +30,9 @@
                             <a href="{% url 'store:game' game.id %}">
                                 <h3 class="card-title">
                                     {{ game.title }}
-                                    <span class="badge bg-secondary">{{ game.get_genre_display }}</span>
+                                    {% with first_genre=game.genre.all|first %}
+                                    <span class="badge bg-secondary">{{ first_genre }}</span>
+                                    {% endwith %}
                                 </h3>
                             </a>
                         </div>
@@ -71,6 +79,12 @@
                 </div>
             </div>
             {% endfor %}
+
+            {% else %}
+            <div class="container">
+                <p>No games found for your search query.</p>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
