@@ -6,10 +6,8 @@
 
 ## Features
 
-- Browse games by genre, title, or query
+- Browse games by genre, title
 - Add games to cart and wishlist
-- Manage cart and wishlist items
-- Responsive design for mobile and desktop devices
 
 ## Technologies Used
 
