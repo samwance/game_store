@@ -1,0 +1,75 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="banner">
+    <div class="container">
+        <h1>Welcome to our Tabletop Game Store</h1>
+        <p>Discover exciting and engaging tabletop games for all ages and skill levels.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id="carouselGenres" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for genre in genres %}
+                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="{% url 'store:genre' genre.slug %}">
+                                <img src="{{ genre.preview.url }}" alt="{{ genre.name }}"
+                                     class="d-block w-100 carousel-image">
+                            </a>
+                        </div>
+                        <div class="col-md-6 carousel-description">
+                            <h2>{{ genre.name }}</h2>
+                            <h3>{{ genre.description }}</h3>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" data-bs-target="#carouselGenres" data-bs-slide="prev" class="carousel-control-prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button type="button" data-bs-target="#carouselGenres" data-bs-slide="next" class="carousel-control-next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {% for game in featured_games %}
+    <div class="container">
+        <a href="{% url 'store:game' game.id %}">
+            <img src="{{ game.preview.url }}" alt="{{ game.title }}" class="card-img-top game-card-img">
+        </a>
+        <a href="{% url 'store:game' game.id %}">
+            <h3 class="card-title">
+                {{ game.title }}
+            </h3>
+        </a>
+        <h3>
+            {% with first_genre=game.genre.all|first %}
+            <span class="badge bg-secondary">{{ first_genre }}</span>
+            {% endwith %}
+            <span class="text-muted">
+                        {{ game.price }}
+        </span>
+        </h3>
+
+        <p class="card-text">{{ game.description }}</p>
+    </div>
+</div>
+{% endfor %}
+<style>
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 1;
+    }
+</style>
+{% endblock %}

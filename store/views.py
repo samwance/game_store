@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Game, CartItem, Cart, WishlistItem, Wishlist
+from .models import Game, CartItem, Cart, WishlistItem, Wishlist, Genre
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
@@ -18,6 +18,16 @@ def get_game_list_data(request):
     wishlist_game_ids = set(item.game.id for item in wishlist)
 
     return cart_game_ids, wishlist_game_ids
+
+
+def home(request):
+    genres = Genre.objects.all()
+    featured_games = Game.objects.all()[:5]
+    context = {
+        'genres': genres,
+        'featured_games': featured_games,
+    }
+    return render(request, 'store/home.html', context)
 
 
 @login_required
@@ -50,6 +60,11 @@ def game_list(request):
     return render(request, 'store/index.html', context)
 
 
+def genre_list(request):
+    genres = Genre.objects.all()
+    return render(request, 'store/genre_list.html', {'genres': genres})
+
+
 def view_game(request, pk):
     game = get_object_or_404(Game, pk=pk)
 
@@ -62,6 +77,11 @@ def view_game(request, pk):
 
     context = {'game': game, 'title': title}
     return render(request, 'store/game.html', context)
+
+
+def view_genre(request, slug):
+    genre = Genre.objects.get(slug=slug)
+    return render(request, 'store/genre.html', {'genre': genre})
 
 
 def about(request):

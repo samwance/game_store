@@ -74,6 +74,10 @@ $(function() {
             var cartText = $(`.btn-wishlist${gameId}`).text()
             var trim = $.trim(cartText)
 
+            let res;
+            var wishlistItems = $(`.wishlist-items`).text()
+            var trimCount = parseInt(wishlistItems)
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -83,9 +87,13 @@ $(function() {
                     console.log(response)
                     if(trim === 'Unlike') {
                         $(`.btn-wishlist${gameId}`).text('Like')
+                        res = trimCount - 1
                     } else {
                         $(`.btn-wishlist${gameId}`).text('Unlike')
+                        res = trimCount + 1
                     }
+
+                    $(`.wishlist-items`).text(res)
                 },
                 error: function(xhr, status, error) {
                     console.error(errorMessage, error);
