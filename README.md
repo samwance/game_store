@@ -51,7 +51,7 @@ python manage.py loaddata db_data.json
 python manage.py runserver
 ```
 
-Open the website in your browser:
+Open the website in your browser
 http://localhost:8000
 
 to make a superuser u can use this command:
