@@ -29,10 +29,10 @@
 
 <header class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" style="display: flex" href="{% url 'store:list' %}">
+        <a class="navbar-brand" style="display: flex" href="{% url 'store:home' %}">
             <img src="{% static 'default/bg_logo.png' %}" alt="Logo" width="50" height="50">
         </a>
-        <a class="navbar-brand" style="display: flex" href="{% url 'store:list' %}">
+        <a class="navbar-brand" style="display: flex" href="{% url 'store:home' %}">
             <h1 class="navbar-brand"><strong>Table & Board</strong></h1>
         </a>
         <ul class="navbar-nav">
@@ -88,7 +88,7 @@
                             <li><a class="dropdown-item" href="{% url 'users:profile' %}">My Account</a></li>
                             <li><a class="dropdown-item" href="{% url 'store:wishlist'%}">
                                 My wishlist
-        (<span class="wishlist-items">{{ request.wishlist_count }}</span>)
+                                (<span class="wishlist-items">{{ request.wishlist_count }}</span>)
                             </a></li>
                             <li>
                                 <hr class="dropdown-divider">

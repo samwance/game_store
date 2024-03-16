@@ -1,7 +1,7 @@
 <div class="cart-summary">
     <a href="{% url 'store:cart'%}" class="btn btn-sm btn-outline">
-        <i class="bi-basket text-gray"></i>
         <span class="cart-items">{{ request.cart_count }}</span>
+        <i class="bi-basket text-gray"></i>
         <span>$</span>
         <span class="cart-price">{{ request.cart_price }} </span>
     </a>

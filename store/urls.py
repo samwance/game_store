@@ -2,12 +2,13 @@ from django.urls import path
 
 from store.apps import StoreConfig
 from store.views import game_list, view_game, about, manage_cart, cart_list, \
-    wishlist_list, manage_wishlist, genre_list, view_genre
+    wishlist_list, manage_wishlist, genre_list, view_genre, home
 
 app_name = StoreConfig.name
 
 urlpatterns = [
-    path("", game_list, name="list"),
+    path("", home, name="home"),
+    path("games/", game_list, name="list"),
     path("genres/", genre_list, name="genres"),
     path("<int:pk>/", view_game, name="game"),
     path("genres/<slug:slug>/", view_genre, name="genre"),

@@ -20,6 +20,16 @@ def get_game_list_data(request):
     return cart_game_ids, wishlist_game_ids
 
 
+def home(request):
+    genres = Genre.objects.all()
+    featured_games = Game.objects.all()[:5]
+    context = {
+        'genres': genres,
+        'featured_games': featured_games,
+    }
+    return render(request, 'store/home.html', context)
+
+
 @login_required
 def game_list(request):
     query = request.GET.get('q')
