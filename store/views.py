@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Game, CartItem, Cart, WishlistItem, Wishlist
+from .models import Game, CartItem, Cart, WishlistItem, Wishlist, Genre
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
@@ -48,6 +48,11 @@ def game_list(request):
     title = 'Table & Board'
     context = {'games': games, 'title': title, 'query': query, 'genre_filter': genre_filter}
     return render(request, 'store/index.html', context)
+
+
+def genre_list(request):
+    genres = Genre.objects.all()
+    return render(request, 'store/genre_list.html', {'genres': genres})
 
 
 def view_game(request, pk):
