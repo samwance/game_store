@@ -17,6 +17,14 @@
     <script src='{% static "/js/custom.js" %}'></script>
 
 </head>
+
+
+{% if not user.is_authenticated %}
+<script>
+    window.location.replace("{% url 'users:login' %}");
+</script>
+{% endif %}
+
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 
 <header class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -44,12 +52,12 @@
                            name="q">
                     <select class="form-select me-2" name="genre" aria-label="Select Genre">
                         <option value="">All genres</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="strategy">Strategy</option>
-                        <option value="role_playing">Role Playing</option>
-                        <option value="puzzle">Puzzle</option>
-                        <option value="card">Card</option>
-                        <option value="word">Word</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Strategy">Strategy</option>
+                        <option value="Role Playing">Role Playing</option>
+                        <option value="Puzzle">Puzzle</option>
+                        <option value="Card">Card</option>
+                        <option value="Word">Word</option>
                     </select>
                     <button class="btn btn-outline-success search-btn" type="submit" style="margin-right: 10px;">
                         Search

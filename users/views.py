@@ -14,7 +14,7 @@ class Login(LoginView):
     extra_context = {"title": "Authorization"}
 
     def get_success_url(self):
-        return reverse_lazy("users:profile")
+        return reverse_lazy("store:list")
 
 
 def logout_user(request):

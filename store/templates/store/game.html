@@ -9,7 +9,12 @@
         <div class="col-md-6">
             <h1>{{ game.title }}</h1>
             <p>{{ game.description }}</p>
-            <p><strong>Genre</strong>: {{ game.get_genre_display }}</p>
+            <p><strong>Genres</strong>:
+                {% for genre in game.genre.all %}
+                {{ genre }}
+                {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
             <p><strong>Publisher</strong>: {{ game.publisher }}</p>
             <p><strong>Age Rating</strong>: {{ game.age_rating }}</p>
             <p><strong>Price</strong>: {{ game.price }}</p>

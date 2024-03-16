@@ -23,7 +23,7 @@ import users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('users.urls', namespace="users")),
+    path('accounts/', include('users.urls', namespace="users")),
     path('', include('store.urls', namespace="store")),
 ]
 if settings.DEBUG:

@@ -1,8 +1,12 @@
+from functools import reduce
+
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Game, CartItem, Cart, WishlistItem, Wishlist
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 
 def get_game_list_data(request):
@@ -16,6 +20,7 @@ def get_game_list_data(request):
     return cart_game_ids, wishlist_game_ids
 
 
+@login_required
 def game_list(request):
     query = request.GET.get('q')
     genre_filter = request.GET.getlist('genre')
@@ -36,10 +41,12 @@ def game_list(request):
             # If the 'all genres' option is selected, show all games
             pass
         else:
-            games = games.filter(genre__in=genre_filter)
-
+            # Filter games by all selected genres
+            genre_filter = [' '.join(genre.split('+')) for genre in genre_filter]
+            genre_set = set(genre_filter)
+            games = games.filter(genre__name__in=genre_set)
     title = 'Table & Board'
-    context = {'games': games, 'title': title}
+    context = {'games': games, 'title': title, 'query': query, 'genre_filter': genre_filter}
     return render(request, 'store/index.html', context)
 
 
