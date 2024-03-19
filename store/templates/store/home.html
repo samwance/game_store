@@ -44,28 +44,73 @@
 
 <div class="container">
     {% for game in featured_games %}
-    <div class="container">
-        <a href="{% url 'store:game' game.id %}">
-            <img src="{{ game.preview.url }}" alt="{{ game.title }}" class="card-img-top game-card-img">
-        </a>
-        <a href="{% url 'store:game' game.id %}">
-            <h3 class="card-title">
-                {{ game.title }}
-            </h3>
-        </a>
-        <h3>
-            {% with first_genre=game.genre.all|first %}
-            <span class="badge bg-secondary">{{ first_genre }}</span>
-            {% endwith %}
-            <span class="text-muted">
-                        {{ game.price }}
-        </span>
-        </h3>
+    <div class="col">
+        <div class="row">
+            <div class="card game-card shadow-sm col-md-6">
+                <div class="game-card-img-container">
+                    <a href="{% url 'store:game' game.id %}">
+                        <img src="{{ game.preview.url }}" alt="Preview" class="card-img-top game-card-img">
+                    </a>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <a href="{% url 'store:game' game.id %}">
+                            <h3 class="card-title">
+                                {{ game.title }}
+                                {% with first_genre=game.genre.all|first %}
+                                <span class="badge bg-secondary">{{ first_genre }}</span>
+                                {% endwith %}
+                            </h3>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <form method="post" id="manage-cart-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="game_id" value="{{ game.id }}"/>
+                            <input type="hidden" name="game_price" value="{{ game.price }}"/>
 
-        <p class="card-text">{{ game.description }}</p>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
+                                <h4 class="btn-cart{{ game.id }}">
+                                    {% if game.in_cart %}
+                                    Remove
+                                    {% else %}
+                                    Add
+                                    {% endif %}
+                                </h4>
+                            </button>
+                        </form>
+                        <form method="post" id="manage-wishlist-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="game_id" value="{{ game.id }}"/>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary w-100">
+
+                                <h4 class="btn-wishlist{{ game.id }}">
+                                    {% if not game.in_wishlist %}
+                                    Like
+                                    {% else %}
+                                    Unlike
+                                    {% endif %}
+
+                                </h4>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="price">
+                                <span class="text-muted">
+                                    <h3>
+                                    {{ game.price }}
+                                    </h3>
+                                </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p>{{ game.description }}</p>
+            </div>
+        </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
 <style>
     .carousel-control-prev,
     .carousel-control-next {
