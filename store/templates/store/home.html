@@ -8,6 +8,7 @@
         <p>Discover exciting and engaging tabletop games for all ages and skill levels.</p>
     </div>
 </div>
+<br>
 
 <div class="container">
     <div class="row">
@@ -41,7 +42,7 @@
         </div>
     </div>
 </div>
-
+<br>
 <div class="container">
     {% for game in featured_games %}
     <div class="col">
@@ -104,11 +105,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="genre-info col-md-6">
                 <p>{{ game.description }}</p>
             </div>
         </div>
     </div>
+    <br>
     {% endfor %}
 </div>
 <style>

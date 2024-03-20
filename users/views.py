@@ -40,14 +40,18 @@ class Register(CreateView):
 
 class ProfileUser(LoginRequiredMixin, UpdateView):
     model = User
-    form_class = ProfileUserForm
+    fields = ['phone', 'street', 'house_number', 'apartment_number', 'city', 'zip_code', 'photo']
     template_name = "users/profile.html"
     extra_context = {
         "title": "Edit profile",
     }
 
-    def get_success_url(self):
-        return reverse_lazy("users:profile")
+    def form_valid(self, form):
+        form.instance.save()
+        return super().form_valid(form)
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_success_url(self):
+        return reverse_lazy("users:profile")

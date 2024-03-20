@@ -1,37 +1,53 @@
-{% extends 'users/base.html' %}
+{% extends 'store/base.html' %}
 {% load static %}
+
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="form-signin w-100 m-auto">
-            <h1>Profile</h1>
-
-            {% if user.photo %}
-            <div class="media">
-                <img class="rounded-circle account-img" src="{{ user.photo.url }}" width="100" height="100">
-                <div class="media-body">
-                    {% endif %}
-
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <p class="form-control">
-                            <label for="id_phone">Phone:</label>
-                            {{ form.phone }}
-                        </p>
-                        <p class="form-control">
-                            <label for="id_name">Name:</label>
-                            {{ form.name }}
-                        </p>
-                        <p class="form-select-image">
-                            <label for="id_photo">Photo:</label>
-                            {{ form.photo }}
-                        </p>
-                        <button type="submit">Save</button>
-                    </form>
-
-                </div>
-            </div>
+    <h1>{{ user.username }}'s Profile</h1>
+    {% if object.user.photo %}
+    <img src="{{ user.photo.url }}" alt="Profile picture" width="200">
+    {% else %}
+    <img src="{% static 'default/no_pic_user.png' %}" alt="Profile"
+         width="200">
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="{{ user.phone }}">
         </div>
-    </div>
+        <div class="row">
+            <br>
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="street" value="{{ user.street }}">
+        </div>
+        <div class="row">
+            <br>
+            <label for="house_number">House number:</label>
+            <input type="text" id="house_number" name="house_number" value="{{ user.house_number }}">
+        </div>
+        <div class="row">
+            <br>
+            <label for="apartment_number">Apartment number:</label>
+            <input type="text" id="apartment_number" name="apartment_number" value="{{ user.apartment_number }}">
+        </div>
+        <div class="row">
+            <br>
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" value="{{ user.city }}">
+        </div>
+        <div class="row">
+            <br>
+            <label for="zip_code">Zip code:</label>
+            <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}">
+        </div>
+        <div class="row">
+            <br>
+            <label for="photo">Profile picture:</label>
+            <input type="file" id="photo" name="photo">
+        </div>
+        <br>
+        <button class="btn btn-outline-success search-btn" type="submit">Save changes</button>
+    </form>
 </div>
 {% endblock %}

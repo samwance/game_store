@@ -24,8 +24,9 @@ def home(request):
     genres = Genre.objects.all()
     featured_games = Game.objects.all()[:5]
     context = {
+        'title': 'Table & Board',
         'genres': genres,
-        'featured_games': featured_games,
+        'featured_games': featured_games
     }
     return render(request, 'store/home.html', context)
 
@@ -62,7 +63,7 @@ def game_list(request):
 
 def genre_list(request):
     genres = Genre.objects.all()
-    return render(request, 'store/genre_list.html', {'genres': genres})
+    return render(request, 'store/genre_list.html', {'genres': genres, 'title': 'Genres'})
 
 
 def view_game(request, pk):
@@ -81,7 +82,7 @@ def view_game(request, pk):
 
 def view_genre(request, slug):
     genre = Genre.objects.get(slug=slug)
-    return render(request, 'store/genre.html', {'genre': genre})
+    return render(request, 'store/genre.html', {'genre': genre, 'title': genre.name})
 
 
 def about(request):
@@ -92,7 +93,7 @@ def about(request):
 
 def cart_list(request):
     cart_items = CartItem.objects.filter(cart__user=request.user, cart__is_active=True)
-    context = {'object_list': cart_items}
+    context = {'object_list': cart_items, 'title': 'Cart'}
     return render(request, 'store/cart.html', context)
 
 
@@ -121,7 +122,7 @@ def manage_cart(request):
 
 def wishlist_list(request):
     wishlist_items = WishlistItem.objects.filter(wishlist__user=request.user, wishlist__is_active=True)
-    context = {'object_list': wishlist_items}
+    context = {'object_list': wishlist_items, 'title': 'Wishlist'}
     return render(request, 'store/wishlist.html', context)
 
 
