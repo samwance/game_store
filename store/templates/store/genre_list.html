@@ -11,6 +11,7 @@
 
 <div class="container">
     {% for genre in genres %}
+    <br>
     <div class="genre-info">
         <h2><strong><a class="genre-link" href="{% url 'store:genre' slug=genre.slug %}">{{ genre.name }}</a></strong></h2>
         <p>{{ genre.description }}</p>
